@@ -12,7 +12,7 @@ notes.get('/', (req, res) => {
 });
 
 // GET Route for a specific tip
-notes.get('/:tip_id', (req, res) => {
+notes.get('/:note_id', (req, res) => {
   const tipId = req.params.tip_id;
   readFromFile('./db/notes.json')
     .then((data) => JSON.parse(data))
@@ -25,8 +25,37 @@ notes.get('/:tip_id', (req, res) => {
 });
 
 
+// POST Route for submitting feedback
+notes.post('/', (req, res) => {
+  // Destructuring assignment for the items in req.body
+  const { title, noteText} = req.body;
+
+  // If all the required properties are present
+  if (title && noteText) {
+    // Variable for the object we will save
+    const jsonNotes = {
+      title,
+      text,
+      feedback_id: uuidv4(),
+    };
+
+    writeToFile(jsonNotes, './db/notes.json');
+
+    const response = {
+      status: 'success',
+      body: jsonNotes,
+      feedback_id: uuidv4(),
+    };
+
+    res.json(response);
+  } else {
+    res.json('Error in posting feedback');
+  }
+});
+
+/*
 // DELETE Route for a specific tip
-notes.delete('/:tip_id', (req, res) => {
+notes.delete('/:note_id', (req, res) => {
   const tipId = req.params.tip_id;
   readFromFile('./db/notes.json')
     .then((data) => JSON.parse(data))
@@ -41,20 +70,19 @@ notes.delete('/:tip_id', (req, res) => {
       res.json(`Item ${tipId} has been deleted 🗑️`);
     });
 });
-
+*/
 
 // POST Route for a new UX/UI tip
 notes.post('/', (req, res) => {
   console.log(req.body);
 
-  const { username, topic, tip } = req.body;
+  const { title, text } = req.body;
 
   if (req.body) {
     const newTip = {
-      username,
-      tip,
-      topic,
-      tip_id: uuidv4(),
+      title,
+      text,
+      note_id: uuidv4(),
     };
 
     readAndAppend(newTip, './db/notes.json');
@@ -63,5 +91,6 @@ notes.post('/', (req, res) => {
     res.error('Error in adding tip');
   }
 });
+
 
 module.exports = notes;

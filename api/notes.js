@@ -6,7 +6,7 @@ const {
   writeToFile,
 } = require('../helpers/fsUtils');
 
-// GET Route for retrieving all the notes
+// GET Route for retrieving all the notes. @@@ I changed L11 from this: ./db/notes.json
 notes.get('/', (req, res) => {
   readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
 });

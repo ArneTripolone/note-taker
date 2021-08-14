@@ -36,7 +36,7 @@ notes.post('/', (req, res) => {
     const jsonNotes = {
       title,
       text,
-      //feedback_id: uuidv4(),
+      id: uuidv4(),
     };
 
     writeToFile(jsonNotes, './db/notes.json');
@@ -44,7 +44,7 @@ notes.post('/', (req, res) => {
     const response = {
       status: 'success',
       body: jsonNotes,
-      //feedback_id: uuidv4(),
+      id: uuidv4(),
     };
 
     res.json(response);

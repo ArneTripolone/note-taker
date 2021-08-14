@@ -1,6 +1,10 @@
 [
-    {
-        "title":"Does this work",
-        "text":"or this?"
-    }
-]
+      {
+        "title": "Finish Module 11",
+        "text": "Learn Express.js!"
+      },
+      {
+        "title": "Start Challenge",
+        "text": "Due this Sunday! "
+      }
+    ]

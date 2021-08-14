@@ -9,18 +9,31 @@ const PORT = process.env.port || 3001;
 
 const app = express();
 
-// Import custom middleware, "cLog"
-app.use(clog);
-
-// Middleware for parsing JSON and urlencoded form data
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', api);
+app.use(express.static('public'));
+// Import custom middleware, "clog"
+app.use(clog);
+// Middleware for parsing JSON and urlencoded form data
+app.use(express.json());
 //app.use(notes);
 
-app.use(express.static('public'));
+// GET Route for homepage
+app.get('/notes', (req, res) =>
+  res.sendFile(path.join(__dirname, '/public/notes.html'))
+);
 
-// request data
+//app.post('../db', (req, res) =>
+//  res.sendFile(path.join(__dirname, '/notes.json'))
+//);
+
+app.listen(PORT, () =>
+  console.log(`App listening at http://localhost:${PORT} 🚀`)
+);
+
+
+/*
+//request data
 //const { notes } = require('./db/notes.json');
 /*
 function createNewNote (body, notesArray) {
@@ -58,7 +71,6 @@ app.post('/db/notes', (req, res) => {
   }
 });
 
-
 // function handling taking the data from req.body and adding it to our animals.json file
 function createNewNote (body, notesArray) {
     const note = body; 
@@ -73,22 +85,6 @@ function createNewNote (body, notesArray) {
     return note; 
 };
 */
-
-
-// GET Route for homepage @@@ changed index to notes @@@
-app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/notes.html'))
-);
-
-// Wildcard route to direct users to a 404 page
-//app.get('*', (req, res) =>
-  //res.sendFile(path.join(__dirname, 'public/pages/index.html'))
-//);
-
 //app.post('./db', (req, res) =>
   //res.sendFile(path.join(__dirname, 'notes.json'))
 //);
-
-app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT} 🚀`)
-);

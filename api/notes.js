@@ -2,31 +2,30 @@ const notes = require('express').Router();
 const { v4: uuidv4 } = require('uuid');
 const {
   readFromFile,
-  readAndAppend,
+  //readAndAppend,
   writeToFile,
 } = require('../helpers/fsUtils');
 
-// GET Route for retrieving all the notes. @@@ I changed L11 from this: ./db/notes.json
+// GET Route for retrieving all the notes
 notes.get('/', (req, res) => {
   readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
 });
 
-// GET Route for a specific tip
+// GET Route for a specific note
 notes.get('/:note_id', (req, res) => {
-  const tipId = req.params.tip_id;
+  const noteId = req.params.tip_id;
   readFromFile('./db/notes.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
-      const result = json.filter((tip) => tip.tip_id === tipId);
+      const result = json.filter((tip) => tip.tip_id === noteId);
       return result.length > 0
         ? res.json(result)
-        : res.json('No tip with that ID');
+        : res.json('No note with that ID');
     });
 });
 
-
-// POST Route for submitting feedback
-notes.post('/', (req, res) => {
+// POST Route for writing a note
+notes.post('/notes', (req, res) => {
   // Destructuring assignment for the items in req.body
   const { title, noteText} = req.body;
 
@@ -53,6 +52,33 @@ notes.post('/', (req, res) => {
   }
 });
 
+module.exports = notes;
+
+/*
+// POST Route for a new note
+notes.post('/notes', (req, res) => {
+  console.log(req.body);
+
+  const { title, text } = req.body;
+
+  if (req.body) {
+    const newNote = {
+      title,
+      text,
+      note_id: uuidv4(),
+    };
+
+    writeToFile(newNote, './db/notes.json');
+    res.json(`Tip added successfully 🚀`);
+  } else {
+    res.error('Error in adding tip');
+  }
+});
+*/
+
+
+module.exports = notes;
+
 /*
 // DELETE Route for a specific tip
 notes.delete('/:note_id', (req, res) => {
@@ -71,26 +97,3 @@ notes.delete('/:note_id', (req, res) => {
     });
 });
 */
-
-// POST Route for a new UX/UI tip
-notes.post('/', (req, res) => {
-  console.log(req.body);
-
-  const { title, text } = req.body;
-
-  if (req.body) {
-    const newNote = {
-      title,
-      text,
-      note_id: uuidv4(),
-    };
-
-    writeToFile(newNote, './db/notes.json');
-    res.json(`Tip added successfully 🚀`);
-  } else {
-    res.error('Error in adding tip');
-  }
-});
-
-
-module.exports = notes;

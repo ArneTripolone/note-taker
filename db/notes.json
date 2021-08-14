@@ -1,7 +1,17 @@
 [
     {
-        "title":"Does this work",
-        "text":"or this?",
+        "title":"API note-taker",
+        "text":"This application is in development",
         "id": "0"
+    },
+    {
+        "title":"Click here",
+        "text":"To display the full note",
+        "id": "1"
+    },
+    {
+        "title":"JS Express",
+        "text":"This is a GET and POST request example",
+        "id": "2"
     }
 ]

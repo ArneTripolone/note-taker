@@ -1,5 +1,5 @@
 const notes = require('express').Router();
-//const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const {
   readFromFile,
   readAndAppend,
@@ -82,10 +82,10 @@ notes.post('/', (req, res) => {
     const newNote = {
       title,
       text,
-      //note_id: uuidv4(),
+      note_id: uuidv4(),
     };
 
-    readAndAppend(newNote, './db/notes.json');
+    writeToFile(newNote, './db/notes.json');
     res.json(`Tip added successfully 🚀`);
   } else {
     res.error('Error in adding tip');

@@ -22,7 +22,7 @@ app.use(express.static('public'));
 
 // request data
 //const { notes } = require('./db/notes.json');
-
+/*
 function createNewNote (body, notesArray) {
   const note = body; 
   notesArray.push(note); 
@@ -72,6 +72,7 @@ function createNewNote (body, notesArray) {
     // return finished code to post route for response
     return note; 
 };
+*/
 
 
 // GET Route for homepage @@@ changed index to notes @@@

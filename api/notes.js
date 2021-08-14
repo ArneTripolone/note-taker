@@ -1,5 +1,5 @@
 const notes = require('express').Router();
-const { v4: uuidv4 } = require('uuid');
+//const { v4: uuidv4 } = require('uuid');
 const {
   readFromFile,
   readAndAppend,
@@ -36,7 +36,7 @@ notes.post('/', (req, res) => {
     const jsonNotes = {
       title,
       text,
-      feedback_id: uuidv4(),
+      //feedback_id: uuidv4(),
     };
 
     writeToFile(jsonNotes, './db/notes.json');
@@ -44,7 +44,7 @@ notes.post('/', (req, res) => {
     const response = {
       status: 'success',
       body: jsonNotes,
-      feedback_id: uuidv4(),
+      //feedback_id: uuidv4(),
     };
 
     res.json(response);
@@ -79,13 +79,13 @@ notes.post('/', (req, res) => {
   const { title, text } = req.body;
 
   if (req.body) {
-    const newTip = {
+    const newNote = {
       title,
       text,
-      note_id: uuidv4(),
+      //note_id: uuidv4(),
     };
 
-    readAndAppend(newTip, './db/notes.json');
+    readAndAppend(newNote, './db/notes.json');
     res.json(`Tip added successfully 🚀`);
   } else {
     res.error('Error in adding tip');

@@ -2,9 +2,36 @@ const notes = require('express').Router();
 const { v4: uuidv4 } = require('uuid');
 const {
   readFromFile,
-  //readAndAppend,
+  readAndAppend,
   writeToFile,
 } = require('../helpers/fsUtils');
+
+// POST Route for writing a note
+notes.post('/notes', (req, res) => {
+  // Destructuring assignment for the items in req.body
+  const { title, text, id } = req.body;
+
+  // If all the required properties are present
+  if (title && text && id) {
+    // Variable for the object to save
+    const jsonNotes = {
+      title,
+      text,
+      id: uuidv4(),
+    };
+
+    writeToFile('./db/notes.json', jsonNotes);
+
+    const response = {
+      status: 'success',
+      body: jsonNotes,
+    };
+
+    res.json(response);
+  } else {
+    res.json('Error in posting feedback');
+  }
+});
 
 // GET Route for retrieving all the notes
 notes.get('/', (req, res) => {
@@ -22,34 +49,6 @@ notes.get('/:note_id', (req, res) => {
         ? res.json(result)
         : res.json('No note with that ID');
     });
-});
-
-// POST Route for writing a note
-notes.post('/notes', (req, res) => {
-  // Destructuring assignment for the items in req.body
-  const { title, noteText} = req.body;
-
-  // If all the required properties are present
-  if (title && noteText) {
-    // Variable for the object we will save
-    const jsonNotes = {
-      title,
-      text,
-      id: uuidv4(),
-    };
-
-    writeToFile(jsonNotes, './db/notes.json');
-
-    const response = {
-      status: 'success',
-      body: jsonNotes,
-      id: uuidv4(),
-    };
-
-    res.json(response);
-  } else {
-    res.json('Error in posting feedback');
-  }
 });
 
 module.exports = notes;
@@ -75,9 +74,6 @@ notes.post('/notes', (req, res) => {
   }
 });
 */
-
-
-module.exports = notes;
 
 /*
 // DELETE Route for a specific tip

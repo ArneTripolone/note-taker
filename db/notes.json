@@ -1,7 +1,7 @@
 [
     {
         "title":"API note-taker",
-        "text":"This application is in development",
+        "text":"This application is deployed on Heroku",
         "id": "0"
     },
     {
@@ -11,7 +11,7 @@
     },
     {
         "title":"JS Express",
-        "text":"This is a GET and POST request example",
+        "text":"This app uses GET and POST routes",
         "id": "2"
     }
 ]

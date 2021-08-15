@@ -23,14 +23,27 @@ app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
-//app.post('../db', (req, res) =>
-//  res.sendFile(path.join(__dirname, '/notes.json'))
-//);
-
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
 
+app.post('/api/notes',(req,res)=>{
+  const { title, text } = req.body;
+  const newNote = {title, text};
+  res.json(newNote);
+
+  fs.readFile('./db/notes.json', 'utf8', (err, data) => {{
+    const parsedNotes = JSON.parse(data);
+    parsedNotes.push(newNote);
+      fs.writeFile(
+        './db/notes.json',
+        JSON.stringify(parsedNotes),
+        (writeErr) =>
+        writeErr ? console.error(writeErr) : console.info('updated notes!')
+      );
+    }
+  });
+})
 
 /*
 //request data

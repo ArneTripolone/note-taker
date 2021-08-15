@@ -1,17 +1,1 @@
-[
-    {
-        "title":"API note-taker",
-        "text":"This application is deployed on Heroku",
-        "id": "0"
-    },
-    {
-        "title":"Click here",
-        "text":"To display the full note",
-        "id": "1"
-    },
-    {
-        "title":"JS Express",
-        "text":"This app uses GET and POST routes",
-        "id": "2"
-    }
-]
+[{"title":"API note-taker","text":"This application is deployed on Heroku","id":"0"},{"title":"Click here","text":"To display the full note","id":"1"},{"title":"JS Express","text":"This app uses GET and POST routes","id":"2"},{"title":"work","text":"pls"},{"title":"work","text":"pls"},{"title":"work?","text":"now?"},{"title":"work?","text":"now"},{"title":"write","text":"notes"}]

@@ -1,3 +1,5 @@
+//const utils = require('../helpers/utils');
+const fs = require('fs');
 const notes = require('express').Router();
 const { v4: uuidv4 } = require('uuid');
 const {
@@ -5,33 +7,6 @@ const {
   readAndAppend,
   writeToFile,
 } = require('../helpers/fsUtils');
-
-// POST Route for writing a note
-notes.post('/notes', (req, res) => {
-  // Destructuring assignment for the items in req.body
-  const { title, text, id } = req.body;
-
-  // If all the required properties are present
-  if (title && text && id) {
-    // Variable for the object to save
-    const jsonNotes = {
-      title,
-      text,
-      id: uuidv4(),
-    };
-
-    writeToFile('./db/notes.json', jsonNotes);
-
-    const response = {
-      status: 'success',
-      body: jsonNotes,
-    };
-
-    res.json(response);
-  } else {
-    res.json('Error in posting feedback');
-  }
-});
 
 // GET Route for retrieving all the notes
 notes.get('/', (req, res) => {
@@ -50,6 +25,16 @@ notes.get('/:note_id', (req, res) => {
         : res.json('No note with that ID');
     });
 });
+
+
+/*
+notes.post('/notes', (req, res) => {
+  console.log(`${req.method} request received to add a note`);
+  utils.newNote(req.body)
+      .then((note) => res.json(note))
+});
+*/
+
 
 module.exports = notes;
 
